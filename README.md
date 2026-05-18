@@ -35,32 +35,32 @@ Example:
 ```python
 import pandas as pd
 
-data1 = pd.read_excel("000280216.xlsx")
+data1 = pd.read_excel("../data/000280216.xlsx")
 ```
 
 ---
 
 ## 4. Cleaning Workflow
 
-### 1. Load and inspect raw data
+### 4.1 Load and inspect raw data
 
 The raw Excel file was loaded using `pandas.read_excel()`. Initial checks included dataset shape, column names, data types, missing values, and sample records to understand the raw structure before cleaning.
 
 ---
 
-### 2. Standardize column names and add the data source
+### 4.2 Standardize column names and add the data source
 
 Japanese column names were translated into standardized English snake_case format to improve readability and support downstream analysis. Source metadata (`source_file`, `source_url`) was added to preserve traceability to the original dataset.
 
 ---
 
-### 3. Review missing values and preserve business-meaningful nulls
+### 4.3 Review missing values and preserve business-meaningful nulls
 
 Missing values were reviewed across all columns. Null values were preserved when representing meaningful business states rather than data quality issues (e.g., non-revoked certifications or absent succession events).
 
 ---
 
-### 4. Standardize date columns
+### 4.4 Standardize date columns
 
 Date-related columns were converted using `pd.to_datetime()` and standardized into a consistent format for downstream analysis and SQLite export.
 
@@ -71,7 +71,7 @@ Target columns include:
 - `certification_revocation_date`
 
 ---
-### 5. Identify and deduplicate records
+### 4.5 Identify and deduplicate records
 
 The deduplication workflow was:
 
@@ -149,7 +149,7 @@ This file serves as the analysis-ready dataset and was used as the input for sub
 
 ---
 
-### 6. Export cleaned dataset to SQLite
+### 4.6 Export cleaned dataset to SQLite
 
 The cleaned dataset was exported into SQLite format for structured storage, SQL querying, and future integration with dashboards or downstream analytical workflows.
 
@@ -371,13 +371,18 @@ japan_eda.ipynb
 
 This notebook uses `cleaned_japan.xlsx` as input and performs dataset overview, certification year trend analysis, certification body distribution analysis, and major vendor analysis.
 
-### 4. Review outputs
+### 6. Review outputs
 
 The main outputs include:
 
-- Cleaned Excel dataset
-- SQLite database file
-- EDA tables
-- Certification year trend visualization
-- Certification body distribution visualization
-- Major vendor visualization
+```text
+data/processed/cleaned_japan.xlsx
+database/Japan_medical_devices.sqlite
+reference/certification_body_mapping.xlsx
+
+outputs/certification_year_trend.png
+outputs/certification_body_distribution.png
+outputs/vendor_distribution.png
+```
+
+These outputs include the cleaned dataset, SQLite database, certification body mapping table, and EDA visualizations for certification trends, certification body distribution, and major vendor distribution.
